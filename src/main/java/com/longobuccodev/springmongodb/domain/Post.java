@@ -1,10 +1,15 @@
 package com.longobuccodev.springmongodb.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.longobuccodev.springmongodb.dto.AuthorDTO;
+import com.longobuccodev.springmongodb.dto.CommentDTO;
 
 @Document
 public class Post implements Serializable {
@@ -15,12 +20,14 @@ public class Post implements Serializable {
 	private Date date;
 	private String title;
 	private String body;
-	private User author;
+	private AuthorDTO author;
+	
+	private List<CommentDTO> comments = new ArrayList<>();
 	
 	public Post() {
 	}
 
-	public Post(String id, Date date, String title, String body, User author) {
+	public Post(String id, Date date, String title, String body, AuthorDTO author) {
 		super();
 		this.id = id;
 		this.date = date;
@@ -60,6 +67,21 @@ public class Post implements Serializable {
 	public void setBody(String body) {
 		this.body = body;
 	}
+	public AuthorDTO getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(AuthorDTO author) {
+		this.author = author;
+	}
+	public List<CommentDTO> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<CommentDTO> list) {
+		this.comments = list;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -69,14 +91,7 @@ public class Post implements Serializable {
 		return result;
 	}
 	
-	public User getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(User author) {
-		this.author = author;
-	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -93,6 +108,8 @@ public class Post implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 
 }
